@@ -7,6 +7,3 @@ test:
         - cp ./*/*-reports/*.xml $CIRCLE_TEST_REPORTS/reports/
         - mvn cobertura:cobertura-integration-test
         - bash <(curl -s https://codecov.io/bash)
-notify:
-    webhooks:
-        - url: http://csumbse.net/harbormaster/hook/circleci/
