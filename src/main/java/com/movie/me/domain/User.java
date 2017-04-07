@@ -9,28 +9,28 @@ import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
 
 
-@NodeEntity(label="USER")
+@NodeEntity(label="User")
 public class User {
 	@GraphId
 	private Long id;
 
-    @Property(name="USERID")
+    @Property(name="userid")
     private String userid;
 
-	@Property(name="NAME")
+	@Property(name="name")
 	private String name;
 
-	@Property(name="PHOTO_URI")
+	@Property(name="photo_uri")
 	private String photoURI;
 
-	@Property(name="AGE")
+	@Property(name="age")
 	private String age;
 
 	@JsonIgnore
-	@Property(name="EMAIL")
+	@Property(name="email")
 	private String email;
 
-	@Relationship(type="LIKES")
+	@Relationship(type="likes")
 	private Set<Movie> moviesLiked;
 
 	//@Relationship(type="FRIENDS")

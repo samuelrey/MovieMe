@@ -3,20 +3,31 @@ package com.movie.me.controller;
 import com.movie.me.domain.Movie;
 import com.movie.me.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/movies")
 public class MovieController {
     @Autowired
-    MovieService movieService;
+    private MovieService movieService;
+
+    @RequestMapping(value="{imdbid}", method=RequestMethod.GET, produces="application/json")
+    public Movie getMovie(@PathVariable String imdbid) {
+        return movieService.getMovie(imdbid);
+    }
+
+    @RequestMapping(method=RequestMethod.GET, produces="application/json")
+    public List<Movie> searchMovies(@RequestParam(value="title", required=false) String title) {
+        if( title != null ) {
+            return movieService.findByTitleLike(title);
+        }
+
+        return new ArrayList<>();
+    }
 
     @RequestMapping(value="/movie/search", method=RequestMethod.GET, produces="application/json")
     public List<Movie> searchForMovie(@RequestParam(value="property") String property, @RequestParam(value="value") String value) {
@@ -36,8 +47,7 @@ public class MovieController {
             case "genre":
                 return movieService.findByGenreLike(value);
             default:
-                return new ArrayList<Movie>();
+                return new ArrayList<>();
         }
     }
-
 }

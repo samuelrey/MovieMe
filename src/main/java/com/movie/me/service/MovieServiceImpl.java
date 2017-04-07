@@ -9,14 +9,18 @@ import java.util.List;
 
 public class MovieServiceImpl implements MovieService {
     @Autowired
-    MovieRepository movieRepository;
+    private MovieRepository movieRepository;
+
+    public Movie getMovie(String imdbid) {
+        return movieRepository.getMovie(imdbid);
+    }
 
     public List<Movie> findByTitleLike(String title) {
         if( title.length() > 0 ) {
             return movieRepository.findByTitleLike(title);
         }
 
-        return new ArrayList<Movie>();
+        return new ArrayList<>();
     }
 
     public List<Movie> findByRated(String rated) {
@@ -26,7 +30,7 @@ public class MovieServiceImpl implements MovieService {
             return movieRepository.findByRated(rated);
         }
 
-        return new ArrayList<Movie>();
+        return new ArrayList<>();
     }
 
     public List<Movie> findByReleaseDate(String released) {
@@ -34,7 +38,7 @@ public class MovieServiceImpl implements MovieService {
             return movieRepository.findByReleaseDate(released);
         }
 
-        return new ArrayList<Movie>();
+        return new ArrayList<>();
     }
 
     public List<Movie> findByActorLike(String actor) {
@@ -42,7 +46,7 @@ public class MovieServiceImpl implements MovieService {
             return movieRepository.findByActorLike(actor);
         }
 
-        return new ArrayList<Movie>();
+        return new ArrayList<>();
     }
 
     public List<Movie> findByWriterLike(String writer) {
@@ -50,7 +54,7 @@ public class MovieServiceImpl implements MovieService {
             return movieRepository.findByWriterLike(writer);
         }
 
-        return new ArrayList<Movie>();
+        return new ArrayList<>();
     }
 
     public List<Movie> findByDirectorLike(String director) {
@@ -58,7 +62,7 @@ public class MovieServiceImpl implements MovieService {
             return movieRepository.findByDirectorLike(director);
         }
 
-        return new ArrayList<Movie>();
+        return new ArrayList<>();
     }
 
     public List<Movie> findByGenreLike(String genre) {
@@ -66,7 +70,7 @@ public class MovieServiceImpl implements MovieService {
             return movieRepository.findByGenreLike(genre);
         }
 
-        return new ArrayList<Movie>();
+        return new ArrayList<>();
     }
 
 }

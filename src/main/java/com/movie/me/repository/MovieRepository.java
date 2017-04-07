@@ -8,70 +8,70 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MovieRepository extends GraphRepository<Movie> {
-    @Query("MATCH (m:MOVIE {IMDBID:{imdbid}}) " +
+    @Query("MATCH (m:Movie {imdbid:{imdbid}}) " +
             "RETURN m")
-    Movie findByImdbId(@Param("imdbid") String imdbid);
+    Movie getMovie(@Param("imdbid") String imdbid);
 
-    @Query("MATCH (m:MOVIE) " +
-            "WHERE m.TITLE =~ ('(?i).*'+{title}+'.*') " +
+    @Query("MATCH (m:Movie) " +
+            "WHERE m.title =~ ('(?i).*'+{title}+'.*') " +
             "RETURN m")
     List<Movie> findByTitleLike(@Param("title") String title);
 
-    @Query("MATCH (m:MOVIE {RATED:{rated}}) " +
+    @Query("MATCH (m:Movie {rated:{rated}}) " +
             "RETURN m")
     List<Movie> findByRated(@Param("rated") String rated);
 
-    @Query("MATCH (m:MOVIE {RELEASED:{released}}) " +
+    @Query("MATCH (m:Movie {released:{released}}) " +
             "RETURN m")
     List<Movie> findByReleaseDate(@Param("released") String released);
 
-    @Query("MATCH (m:MOVIE) " +
-            "WHERE m.ACTORS =~ ('(?i).*'+{actor}+'.*') " +
+    @Query("MATCH (m:Movie) " +
+            "WHERE m.actors =~ ('(?i).*'+{actor}+'.*') " +
             "RETURN m")
     List<Movie> findByActorLike(@Param("actor") String actor);
 
-    @Query("MATCH (m:MOVIE) " +
-            "WHERE m.WRITER =~ ('(?i).*'+{writer}+'.*') " +
+    @Query("MATCH (m:Movie) " +
+            "WHERE m.writer =~ ('(?i).*'+{writer}+'.*') " +
             "RETURN m")
     List<Movie> findByWriterLike(@Param("writer") String writer);
 
-    @Query("MATCH (m:MOVIE) " +
-            "WHERE m.DIRECTOR =~ ('(?i).*'+{director}+'.*') " +
+    @Query("MATCH (m:Movie) " +
+            "WHERE m.director =~ ('(?i).*'+{director}+'.*') " +
             "RETURN m")
     List<Movie> findByDirectorLike(@Param("director") String director);
 
-    @Query("MATCH (m:MOVIE) " +
-            "WHERE m.GENRE =~ ('(?i).*'+{genre}+'.*') " +
+    @Query("MATCH (m:Movie) " +
+            "WHERE m.genre =~ ('(?i).*'+{genre}+'.*') " +
             "RETURN m")
     List<Movie> findByGenreLike(@Param("genre") String genre);
 
-    @Query("MATCH(m:MOVIE {IMDBID:{imdbid}})" +
-            "<-[l:LIKES]-() " + 
+    @Query("MATCH(m:Movie {imdbid:{imdbid}})" +
+            "<-[l:likes]-() " +
             "RETURN COUNT(l)")
     int countLikesOf(@Param("imdbid") String imdbid);
 
-    @Query("MATCH (:USER {USERID:{userid}}) " +
-            "-[:LIKES]->(m:MOVIE) " +
+    @Query("MATCH (:User {userid:{userid}}) " +
+            "-[:likes]->(m:Movie) " +
             "RETURN m")
     List<Movie> retrieveMoviesLikedBy(@Param("userid") String userid);
 
-    @Query("MATCH(u:USER {USERID:{userid}})" +
-            "-[:LIKES]->(:MOVIE)<-[:LIKES]-(:USER)" +
-            "-[:LIKES]->(m:MOVIE) " +
-            "WHERE NOT (u)-[:LIKES]->(m) " +
+    @Query("MATCH(u:User {userid:{userid}})" +
+            "-[:likes]->(:Movie)<-[:likes]-(:User)" +
+            "-[:likes]->(m:Movie) " +
+            "WHERE NOT (u)-[:likes]->(m) " +
             "WITH m, COUNT(m) AS hits " +
             "RETURN m ORDER BY hits DESC " +
             "LIMIT 30")
     List<Movie> getRecommendationForUser(@Param("userid") String userid);
 
-    @Query("MATCH (u:USER {USERID:{userid}}), " +
-            "(m:MOVIE {IMDBID:{imdbid}}) " +
-            "MERGE (u)-[:LIKES]->(m) " +
+    @Query("MATCH (u:User {userid:{userid}}), " +
+            "(m:Movie {imdbid:{imdbid}}) " +
+            "MERGE (u)-[:likes]->(m) " +
             "RETURN m")
     Movie addUserLikesMovie(@Param("userid") String userid,
                             @Param("imdbid") String imdbid);
 
-    @Query("MATCH (u:USER {USERID:{userid}})-[l:LIKES]-(m:MOVIE {IMDBID:{imdbid}}) " +
+    @Query("MATCH (u:User {userid:{userid}})-[l:likes]-(m:Movie {imdbid:{imdbid}}) " +
             "DELETE l RETURN m")
     Movie userUnlikesMovie(@Param("userid") String userid,
                            @Param("imdbid") String imdbid);

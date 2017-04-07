@@ -24,13 +24,13 @@ import static org.junit.Assert.assertThat;
 public class MovieCountLikesOfMovieIT {
 
     @Autowired
-    MovieRepository movieRepository;
+    private MovieRepository movieRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    Movie newHope;
-    User samuel;
+    private Movie newHope;
+    private User samuel;
 
     @Before
     public void initialize() {
@@ -55,8 +55,7 @@ public class MovieCountLikesOfMovieIT {
     @Test
     @DirtiesContext
     public void testCountLikesOfMovieIsMoreThanZero() {
-        User samuel = new User();
-        samuel.setMoviesLiked(new HashSet<Movie>(Arrays.asList(newHope)));
+        samuel.setMoviesLiked(new HashSet<>(Arrays.asList(newHope)));
         userRepository.save(samuel);
 
         int count = movieRepository.countLikesOf("0004");

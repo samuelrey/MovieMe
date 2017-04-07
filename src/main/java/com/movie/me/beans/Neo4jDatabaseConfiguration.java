@@ -15,7 +15,7 @@ public class Neo4jDatabaseConfiguration extends Neo4jConfiguration {
         config
                 .driverConfiguration()
                 .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
-                .setURI("http://neo4j:MovieMe@localhost:7474");
+                .setURI("http://neo4j:movieme@localhost:7474");
         return config;
     }
 

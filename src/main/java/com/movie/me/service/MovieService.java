@@ -5,6 +5,7 @@ import com.movie.me.domain.Movie;
 import java.util.List;
 
 public interface MovieService {
+    Movie getMovie(String imdbid);
     List<Movie> findByTitleLike(String title);
     List<Movie> findByRated(String rated);
     List<Movie> findByReleaseDate(String released);

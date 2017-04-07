@@ -4,45 +4,45 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
-@NodeEntity(label="MOVIE")
+@NodeEntity(label="Movie")
 public class Movie {
 	@GraphId
 	private Long id;
 
-	@Property(name="IMDBID")
+	@Property(name="imdbid")
 	private String imdbid;
 	
-	@Property(name="TITLE")
+	@Property(name="title")
 	private String title;
 
-	@Property(name="RATING")
+	@Property(name="rating")
 	private String rating;
 	
-	@Property(name="RATED")
+	@Property(name="rated")
 	private String rated;
 	
-	@Property(name="RELEASED")
+	@Property(name="released")
 	private String releaseDate;
 
-	@Property(name="PLOT")
+	@Property(name="plot")
 	private String plot;
 
-	@Property(name="WRITER")
+	@Property(name="writer")
 	private String writer;
 
-	@Property(name="DIRECTOR")
+	@Property(name="director")
 	private String director;
 
-	@Property(name="ACTORS")
+	@Property(name="actors")
 	private String actors;
 
-	@Property(name="GENRE")
+	@Property(name="genre")
 	private String genre;
 
-	@Property(name="RUNTIME")
+	@Property(name="runtime")
 	private String runtime;
 
-	@Property(name="POSTER")
+	@Property(name="poster")
 	private String poster;
 
 	public String getImdbid() {

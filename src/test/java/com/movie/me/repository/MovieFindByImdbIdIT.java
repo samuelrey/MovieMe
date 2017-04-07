@@ -39,7 +39,7 @@ public class MovieFindByImdbIdIT {
     @DirtiesContext
     public void testFindByImdbIdSuccessfulResult() {
         String imdbid = newHope.getImdbid();
-        Movie result = movieRepository.findByImdbId(imdbid);
+        Movie result = movieRepository.getMovie(imdbid);
 
         assertThat(result.equals(newHope), is(true));
     }
@@ -48,7 +48,7 @@ public class MovieFindByImdbIdIT {
     @DirtiesContext
     public void testFindByImdbIdEmptyResult() {
         String imdbid = "0001";
-        Movie result = movieRepository.findByImdbId(imdbid);
+        Movie result = movieRepository.getMovie(imdbid);
 
         assertThat(result, is(nullValue()));
     }
