@@ -8,28 +8,28 @@ import requests
     nodes and edges from database.
 '''
 
-graph = Graph("http://neo4j:MovieMe@localhost:7474/db/data")
+graph = Graph("http://neo4j:movieme@localhost:7474/db/data")
 
 def insertNode(data):
     moviePropertiesDict = dict()
 
     try:
-        moviePropertiesDict["TITLE"] = data["Title"].encode("utf-8")
-        moviePropertiesDict["PLOT"] = data["Plot"].encode("utf-8")
-        moviePropertiesDict["RATED"] = data["Rated"].encode("utf-8")
-        moviePropertiesDict["RATING"] = data["imdbRating"].encode("utf-8")
-        moviePropertiesDict["WRITER"] = data["Writer"].encode("utf-8")
-        moviePropertiesDict["DIRECTOR"] = data["Director"].encode("utf-8")
-        moviePropertiesDict["RELEASED"] = data["Released"].encode("utf-8")
-        moviePropertiesDict["ACTORS"] = data["Actors"].encode("utf-8")
-        moviePropertiesDict["GENRE"] = data["Genre"].encode("utf-8")
-        moviePropertiesDict["RUNTIME"] = data["Runtime"].encode("utf-8")
-        moviePropertiesDict["POSTER"] = data["Poster"].encode("utf-8")
-        moviePropertiesDict["IMDBID"] = data["imdbID"].encode("utf-8")
+        moviePropertiesDict["title"] = data["Title"].encode("utf-8")
+        moviePropertiesDict["plot"] = data["Plot"].encode("utf-8")
+        moviePropertiesDict["rated"] = data["Rated"].encode("utf-8")
+        moviePropertiesDict["rating"] = data["imdbRating"].encode("utf-8")
+        moviePropertiesDict["writer"] = data["Writer"].encode("utf-8")
+        moviePropertiesDict["director"] = data["Director"].encode("utf-8")
+        moviePropertiesDict["released"] = data["Released"].encode("utf-8")
+        moviePropertiesDict["actors"] = data["Actors"].encode("utf-8")
+        moviePropertiesDict["genre"] = data["Genre"].encode("utf-8")
+        moviePropertiesDict["runtime"] = data["Runtime"].encode("utf-8")
+        moviePropertiesDict["poster"] = data["Poster"].encode("utf-8")
+        moviePropertiesDict["imdbid"] = data["imdbID"].encode("utf-8")
     except:
         return
 
-    movieNode = Node.cast("MOVIE", moviePropertiesDict)
+    movieNode = Node("Movie", **moviePropertiesDict)
 
     graph.create(movieNode)
 
