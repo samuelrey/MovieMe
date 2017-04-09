@@ -5,29 +5,26 @@ import java.util.List;
 
 import com.movie.me.utility.GoogleUserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.movie.me.domain.User;
 import com.movie.me.domain.Movie;
 import com.movie.me.service.UserService;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping(value="/user", method=RequestMethod.GET, produces="application/json")
-	public User getUser(@RequestParam(value="id") String id ) {
-		Long uId = new Long(id);
-		User user = userService.findById(new Long(uId));
+	@RequestMapping(method=RequestMethod.POST)
+    public void createUser(@RequestParam(value="email") String email) {
+        userService.createUser(email);
+    }
 
-		System.out.println(user.getName());
-
-		return user;
+	@RequestMapping(value="/{email}", method=RequestMethod.GET, produces="application/json")
+	public User getUser(@PathVariable(value="email") String email ) {
+		return userService.getUser(email);
 	}
 
     @RequestMapping(value="/user/signin", method=RequestMethod.GET, produces="application/json")
