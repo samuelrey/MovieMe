@@ -8,15 +8,10 @@ import com.movie.me.domain.Movie;
 
 @Service
 public interface UserService {
-	User findById(Long id);
-    List<User> findByNameLike(String name);
-    List<Movie> retrieveMoviesLikedBy(String userid);
-    Movie addUserLikesMovie(String userid, String imdbid);
-    Movie userUnlikesMovie(String userid, String imdbid);
-    /*User addUserFriendsUser(String userid1, String userid2);
-    User userRemovesFriend(String userid1, String userid2);
-    List<User> retrieveFriendsOf(String userid);*/
-    List<Movie> getRecommendationForUser(String userid);
-    User userSignIn(User user);
-
+    void createUser(String email);
+	User getUser(String userid);
+    List<Movie> getLikes(String userid);
+    Movie addLike(String userid, String imdbid);
+    Movie removeLike(String userid, String imdbid);
+    List<Movie> getRecommendations(String userid);
 }

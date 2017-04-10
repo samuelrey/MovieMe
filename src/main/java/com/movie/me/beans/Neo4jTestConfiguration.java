@@ -16,7 +16,8 @@ public class Neo4jTestConfiguration extends Neo4jConfiguration {
         Configuration config = new Configuration();
         config
                 .driverConfiguration()
-                .setDriverClassName("org.neo4j.ogm.drivers.embedded.driver.EmbeddedDriver");
+                .setDriverClassName("org.neo4j.ogm.drivers.embedded.driver.EmbeddedDriver")
+                .setURI("file:///home/psycho/movieme/backend/neo4j-community-3.1.2/data/databases/graph.db");
         return config;
     }
 

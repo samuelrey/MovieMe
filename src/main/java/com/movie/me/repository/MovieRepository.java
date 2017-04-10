@@ -50,12 +50,12 @@ public interface MovieRepository extends GraphRepository<Movie> {
             "RETURN COUNT(l)")
     int countLikesOf(@Param("imdbid") String imdbid);
 
-    @Query("MATCH (:User {userid:{userid}}) " +
+    @Query("MATCH (:User {email:{userid}}) " +
             "-[:likes]->(m:Movie) " +
             "RETURN m")
     List<Movie> retrieveMoviesLikedBy(@Param("userid") String userid);
 
-    @Query("MATCH(u:User {userid:{userid}})" +
+    @Query("MATCH(u:User {email:{userid}})" +
             "-[:likes]->(:Movie)<-[:likes]-(:User)" +
             "-[:likes]->(m:Movie) " +
             "WHERE NOT (u)-[:likes]->(m) " +
@@ -64,14 +64,14 @@ public interface MovieRepository extends GraphRepository<Movie> {
             "LIMIT 30")
     List<Movie> getRecommendationForUser(@Param("userid") String userid);
 
-    @Query("MATCH (u:User {userid:{userid}}), " +
+    @Query("MATCH (u:User {email:{userid}}), " +
             "(m:Movie {imdbid:{imdbid}}) " +
             "MERGE (u)-[:likes]->(m) " +
             "RETURN m")
     Movie addUserLikesMovie(@Param("userid") String userid,
                             @Param("imdbid") String imdbid);
 
-    @Query("MATCH (u:User {userid:{userid}})-[l:likes]-(m:Movie {imdbid:{imdbid}}) " +
+    @Query("MATCH (u:User {email:{userid}})-[l:likes]-(m:Movie {imdbid:{imdbid}}) " +
             "DELETE l RETURN m")
     Movie userUnlikesMovie(@Param("userid") String userid,
                            @Param("imdbid") String imdbid);

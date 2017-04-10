@@ -7,7 +7,6 @@ import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Repository;
 
 import com.movie.me.domain.User;
-import com.movie.me.domain.Movie;
 
 @Repository
 public interface UserRepository extends GraphRepository<User> {
@@ -24,20 +23,7 @@ public interface UserRepository extends GraphRepository<User> {
             "RETURN u")
     List<User> findByNameLike(@Param("name") String name);
 
-/*
-    @Query("MATCH (u1:USER {USERID:{userid1}}), " + 
-    	   "(u2:USER {USERID:{userid2}}) " + 
-    	   "MERGE (u1)-[:FRIENDS]->(u2) " +
-    	   "RETURN u2")
-    User addUserFriendsUser(@Param("userid1") String userid1, @Param("userid2") String userid2);
-
-    @Query("MATCH (u1:USER {USERID:{userid1}})-[f:FRIENDS]-(u2:USER {USERID:{userid2}}) " +
-           "DELETE f return u2")
-    User userRemovesFriend(@Param("userid1") String userid1, @Param("userid2") String userid2);
-    
-    @Query("MATCH (:USER {USERID:{userid}}) " +
-            "-[:FRIENDS]->(u:USER) " +
+    @Query("MATCH (u:User {email:{email}}) " +
             "RETURN u")
-    List<User> retrieveFriendsOf(@Param("userid") String userid);
-*/
+    User findByEmail(@Param("email") String email);
 }
