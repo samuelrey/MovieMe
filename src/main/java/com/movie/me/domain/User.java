@@ -14,17 +14,14 @@ public class User {
 	@GraphId
 	private Long id;
 
-    @Property(name="userid")
-    private String userid;
+    @Property(name="username")
+    private String username;
 
 	@Property(name="name")
 	private String name;
 
-	@Property(name="photo_uri")
-	private String photoURI;
-
-	@Property(name="age")
-	private String age;
+	@Property(name="photo")
+	private String photo;
 
 	@JsonIgnore
 	@Property(name="email")
@@ -32,9 +29,6 @@ public class User {
 
 	@Relationship(type="likes")
 	private Set<Movie> moviesLiked;
-
-	//@Relationship(type="FRIENDS")
-	//private Set<User> friends;
 
     public Long getId() {
         return id;
@@ -44,20 +38,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userid;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(String userid) {
-        this.userid = userid;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPhotoURI() {
-		return photoURI;
+    public String getPhoto() {
+		return photo;
     }
 
-	public void setPhotoURI(String photoURI) {
-		this.photoURI = photoURI;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	public String getName() {
@@ -84,14 +78,6 @@ public class User {
 		this.moviesLiked = moviesLiked;
 	}
 
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	public String getAge() {
-		return age;
-	}
-
 	@Override
 	public String toString() {
 		return this.email;
@@ -104,12 +90,10 @@ public class User {
 
 		User user = (User) o;
 
-		if (!userid.equals(user.userid)) return false;
+		if (!username.equals(user.username)) return false;
 		if (!name.equals(user.name)) return false;
-		if (!photoURI.equals(user.photoURI)) return false;
-		if (!age.equals(user.age)) return false;
+		if (!photo.equals(user.photo)) return false;
 		return email.equals(user.email);
-
 	}
 
 }

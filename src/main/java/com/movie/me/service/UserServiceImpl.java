@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     MovieRepository movieRepository;
 
-    public void createUser(String email) {
+    public void createUser(String email, String username, String photo) {
         User user = new User();
         user.setEmail(email);
 

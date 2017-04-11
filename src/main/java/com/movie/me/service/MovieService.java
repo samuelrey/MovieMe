@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface MovieService {
     Movie getMovie(String imdbid);
+    List<Movie> searchMovies(String query);
     List<Movie> findByTitleLike(String title);
     List<Movie> findByRated(String rated);
     List<Movie> findByReleaseDate(String released);

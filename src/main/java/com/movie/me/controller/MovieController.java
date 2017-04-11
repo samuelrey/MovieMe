@@ -1,6 +1,7 @@
 package com.movie.me.controller;
 
 import com.movie.me.domain.Movie;
+import com.movie.me.domain.MovieDoesNotExistException;
 import com.movie.me.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +16,13 @@ public class MovieController {
     private MovieService movieService;
 
     @RequestMapping(value="{imdbid}", method=RequestMethod.GET, produces="application/json")
-    public Movie getMovie(@PathVariable String imdbid) {
+    public Movie getMovie(@PathVariable String imdbid) throws MovieDoesNotExistException {
         return movieService.getMovie(imdbid);
     }
 
     @RequestMapping(method=RequestMethod.GET, produces="application/json")
-    public List<Movie> searchMovies(@RequestParam(value="title", required=false) String title) {
-        return movieService.findByTitleLike(title);
+    public List<Movie> searchMovies(@RequestParam(value="query", required=false) String query)
+            throws IllegalArgumentException {
+        return movieService.searchMovies(query);
     }
 }

@@ -15,6 +15,10 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.getMovie(imdbid);
     }
 
+    public List<Movie> searchMovies(String query) {
+        return new ArrayList<>();
+    }
+
     public List<Movie> findByTitleLike(String title) {
         if( title.length() > 0 ) {
             return movieRepository.findByTitleLike(title);

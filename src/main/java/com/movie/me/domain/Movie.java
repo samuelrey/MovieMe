@@ -148,8 +148,7 @@ public class Movie {
 	public void setReleasedate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
-	
-	@Override
+
 	public String toString() {
 		return this.title;
 	}
