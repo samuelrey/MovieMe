@@ -74,7 +74,7 @@ public class MovieTest {
 
     @Test
     public void testSetRuntimeSuccess() {
-        String runtime = "2h 1min";
+        int runtime = 3;
         newHope.setRuntime(runtime);
 
         assertThat(newHope.getRuntime(), equalTo(runtime));
@@ -99,7 +99,7 @@ public class MovieTest {
 
     @Test
     public void testSetRatingSuccess() {
-        String rating = "8.7";
+        double rating = 8.7;
         newHope.setRating(rating);
 
         assertThat(newHope.getRating(), equalTo(rating));
@@ -107,7 +107,7 @@ public class MovieTest {
 
     @Test
     public void testsetReleasedateSuccess() {
-        String releaseDate = "25 May 1977";
+        int releaseDate = 48932908;
         newHope.setReleasedate(releaseDate);
 
         assertThat(newHope.getReleaseDate(), equalTo(releaseDate));

@@ -31,7 +31,7 @@ public class CreateUserIT {
     @Before
     public void initialize() {
         sam = new User();
-        sam.setUserId("sam123");
+        sam.setUsername("sam123");
         sam.setName("sam");
         sam.setEmail("svillavicencio@csumb.edu");
 
@@ -45,13 +45,11 @@ public class CreateUserIT {
     @DirtiesContext
     public void createUserSuccess() {
         User samuel = new User();
-        samuel.setUserId("sammy123");
         samuel.setName("Samuel Villavicencio");
-        samuel.setAge("21");
-        samuel.setPhotoURI("");
+        samuel.setPhoto("");
         samuel.setEmail("savillavicencio@csumb.edu");
 
-        User result = userRepository.createUserNode(samuel.getName(), samuel.getAge(), samuel.getEmail(), samuel.getUserId(), samuel.getPhotoURI());
+        User result = userRepository.createUserNode(samuel.getName(), samuel.getEmail(), samuel.getUsername(), samuel.getPhoto(), samuel.getPhoto());
         assertThat(result.equals(samuel), is(true));
     }
 

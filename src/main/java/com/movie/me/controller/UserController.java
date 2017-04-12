@@ -5,6 +5,7 @@ import java.util.List;
 import com.movie.me.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class UserController {
         userService.createUser(email, username, photo);
     }
 
-    @RequestMapping(value="/{username}", method=RequestMethod.GET, produces="application/json")
+    @RequestMapping(value="/{username}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable(value="username") String username) throws UserDoesNotExistException {
         return userService.getUser(username);
     }
@@ -34,7 +35,7 @@ public class UserController {
         userService.addLike(username, imdbid);
     }
 
-	@RequestMapping(value="/{username}/likes", method=RequestMethod.GET, produces="application/json")
+	@RequestMapping(value="/{username}/likes", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     public List<Movie> getLikes(@PathVariable(value="username") String username) throws UserDoesNotExistException {
 	    return userService.getLikes(username);
 	}
@@ -45,7 +46,8 @@ public class UserController {
 		userService.removeLike(username, imdbid);
 	}
 
-    @RequestMapping(value="/{username}/recommendations", method=RequestMethod.GET, produces="application/json")
+    @RequestMapping(value="/{username}/recommendations", method=RequestMethod.GET,
+            produces=MediaType.APPLICATION_JSON_VALUE)
     public List<Movie> getRecommendations(@PathVariable(value="username") String username)
             throws UserDoesNotExistException {
 	    return userService.getRecommendations(username);

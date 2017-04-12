@@ -36,19 +36,19 @@ public class UserAddFriendsIT {
     @Before
     public void initialize() {
         samuel = new User();
-        samuel.setUserId("sammy123");
+        samuel.setUsername("sammy123");
         samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
-        clarissa.setUserId("clari123");
+        clarissa.setUsername("clari123");
         clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 
         hugo = new User();
         hugo.setName("Hugo Argueta");
         hugo.setEmail("hugoargueta@gmail.com");
-        hugo.setUserId("1001");
+        hugo.setUsername("1001");
 
         newHope = new Movie();
         newHope.setTitle("Star Wars: Episode IV - A New Hope");
@@ -69,23 +69,23 @@ public class UserAddFriendsIT {
     @Test
     @DirtiesContext
     public void testAddUserFriendsExistentUser() {
-        /*User result = userRepository.addUserFriendsUser(samuel.getUserId(), clarissa.getUserId());
+        /*User result = userRepository.addUserFriendsUser(samuel.getUsername(), clarissa.getUsername());
         assertThat(result, equalTo(clarissa));*/
     }
 
     @Test
     @DirtiesContext
     public void testAddUserFriendsNonexistentUser() {
-        /*User result = userRepository.addUserFriendsUser(samuel.getUserId(), "Pearce");
+        /*User result = userRepository.addUserFriendsUser(samuel.getUsername(), "Pearce");
         assertThat(result, equalTo(null));*/
     }
 
     @Test
     @DirtiesContext
     public void testRetrieveFriendsOfExistentUser() {
-        /*userRepository.addUserFriendsUser(samuel.getUserId(), clarissa.getUserId());
-        userRepository.addUserFriendsUser(samuel.getUserId(), hugo.getUserId());
-        List<User> result = userRepository.retrieveFriendsOf(samuel.getUserId());
+        /*userRepository.addUserFriendsUser(samuel.getUsername(), clarissa.getUsername());
+        userRepository.addUserFriendsUser(samuel.getUsername(), hugo.getUsername());
+        List<User> result = userRepository.retrieveFriendsOf(samuel.getUsername());
         assertThat(result, Matchers.containsInAnyOrder(hugo, clarissa));*/
     }
 }

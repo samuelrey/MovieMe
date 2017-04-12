@@ -38,12 +38,12 @@ public class UserAddLikesIT {
     public void initialize() {
 
         samuel = new User();
-        samuel.setUserId("sammy123");
+        samuel.setUsername("sammy123");
         samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
-        clarissa.setUserId("clari123");
+        clarissa.setUsername("clari123");
         clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 

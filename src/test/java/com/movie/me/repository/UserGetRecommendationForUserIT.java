@@ -41,8 +41,8 @@ public class UserGetRecommendationForUserIT {
         movieRepository.save(goneGirl);
         movieRepository.save(guardians);
 
-        samuel.setUserId("0004");
-        christian.setUserId("0008");
+        samuel.setUsername("0004");
+        christian.setUsername("0008");
         samuel.setMoviesLiked(new HashSet<>(Arrays.asList(guardians)));
         christian.setMoviesLiked(new HashSet<>(Arrays.asList(goneGirl)));
 
@@ -66,8 +66,8 @@ public class UserGetRecommendationForUserIT {
 
         movieRepository.save(pirates);
 
-        samuel.setUserId("0004");
-        christian.setUserId("0008");
+        samuel.setUsername("0004");
+        christian.setUsername("0008");
         samuel.setMoviesLiked(new HashSet<>(Arrays.asList(pirates)));
         christian.setMoviesLiked(new HashSet<>(Arrays.asList(pirates)));
 
@@ -93,8 +93,8 @@ public class UserGetRecommendationForUserIT {
         movieRepository.save(goneGirl);
         movieRepository.save(guardians);
 
-        samuel.setUserId("0004");
-        christian.setUserId("0008");
+        samuel.setUsername("0004");
+        christian.setUsername("0008");
         samuel.setMoviesLiked(new HashSet<>(Arrays.asList(guardians)));
         christian.setMoviesLiked(new HashSet<>(Arrays.asList(goneGirl, guardians)));
 
@@ -121,9 +121,9 @@ public class UserGetRecommendationForUserIT {
 
         movieRepository.save(Arrays.asList(goneGirl, guardians, goneWithTheWind));
 
-        samuel.setUserId("0004");
-        christian.setUserId("0008");
-        clarissa.setUserId("0016");
+        samuel.setUsername("0004");
+        christian.setUsername("0008");
+        clarissa.setUsername("0016");
         samuel.setMoviesLiked(new HashSet<>(Arrays.asList(guardians)));
         christian.setMoviesLiked(new HashSet<>(Arrays.asList(guardians, goneGirl, goneWithTheWind)));
         clarissa.setMoviesLiked(new HashSet<>(Arrays.asList(guardians, goneWithTheWind)));

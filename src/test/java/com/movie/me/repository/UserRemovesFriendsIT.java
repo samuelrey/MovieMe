@@ -33,12 +33,12 @@ public class UserRemovesFriendsIT {
     @Before
     public void initialize() {
         samuel = new User();
-        samuel.setUserId("sammy123");
+        samuel.setUsername("sammy123");
         samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
-        clarissa.setUserId("clari123");
+        clarissa.setUsername("clari123");
         clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 
@@ -51,15 +51,15 @@ public class UserRemovesFriendsIT {
     @Test
     @DirtiesContext
     public void testUserRemovesExistentFriend() {
-        /*userRepository.addUserFriendsUser(samuel.getUserId(), clarissa.getUserId());
-        User result = userRepository.userRemovesFriend(samuel.getUserId(), clarissa.getUserId());
+        /*userRepository.addUserFriendsUser(samuel.getUsername(), clarissa.getUsername());
+        User result = userRepository.userRemovesFriend(samuel.getUsername(), clarissa.getUsername());
         assertThat(result, equalTo(clarissa));*/
     }
 
     @Test
     @DirtiesContext
     public void testUserRemovesNonexistentFriend() {
-        /*User result = userRepository.userRemovesFriend(samuel.getUserId(), "Pearce");
+        /*User result = userRepository.userRemovesFriend(samuel.getUsername(), "Pearce");
         assertThat(result, equalTo(null));*/
     }
 

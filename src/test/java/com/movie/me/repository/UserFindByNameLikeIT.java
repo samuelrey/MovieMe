@@ -30,12 +30,12 @@ public class UserFindByNameLikeIT {
     @Before
     public void initialize() {
         samuel = new User();
-        samuel.setUserId("sammy123");
+        samuel.setUsername("sammy123");
         samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         sam = new User();
-        sam.setUserId("sam123");
+        sam.setUsername("sam123");
         sam.setName("sam");
         sam.setEmail("svillavicencio@csumb.edu");
 

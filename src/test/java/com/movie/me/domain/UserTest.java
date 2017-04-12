@@ -19,11 +19,11 @@ public class UserTest {
     }
 
     @Test
-    public void testSetUserIdSuccess() {
+    public void testSetUsernameSuccess() {
         String userid = "mm1729384";
-        samuel.setUserId(userid);
+        samuel.setUsername(userid);
 
-        assertThat(samuel.getUserId(), equalTo(userid));
+        assertThat(samuel.getUsername(), equalTo(userid));
     }
 
     @Test

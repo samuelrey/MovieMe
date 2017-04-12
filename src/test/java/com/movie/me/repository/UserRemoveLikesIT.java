@@ -37,15 +37,15 @@ public class UserRemoveLikesIT {
         hugo = new User();
         hugo.setName("Hugo Argueta");
         hugo.setEmail("hugoargueta@gmail.com");
-        hugo.setUserId("1001");
+        hugo.setUsername("1001");
 
         samuel = new User();
-        samuel.setUserId("sammy123");
+        samuel.setUsername("sammy123");
         samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
-        clarissa.setUserId("clari123");
+        clarissa.setUsername("clari123");
         clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 
@@ -68,15 +68,15 @@ public class UserRemoveLikesIT {
     @Test
     @DirtiesContext
     public void testUserUnlikesMovieExistentLike(){
-        movieRepository.addUserLikesMovie(hugo.getUserId(), interstellar.getImdbid());
-        Movie result = movieRepository.userUnlikesMovie(hugo.getUserId(), interstellar.getImdbid());
+        movieRepository.addUserLikesMovie(hugo.getUsername(), interstellar.getImdbid());
+        Movie result = movieRepository.userUnlikesMovie(hugo.getUsername(), interstellar.getImdbid());
         assertThat(result, equalTo(interstellar));
     }
 
     @Test
     @DirtiesContext
     public void testUserUnlikesMovieNonexistentLike(){
-        Movie result = movieRepository.userUnlikesMovie(hugo.getUserId(), interstellar.getImdbid());
+        Movie result = movieRepository.userUnlikesMovie(hugo.getUsername(), interstellar.getImdbid());
         assertThat(result, equalTo(null));
     }
 

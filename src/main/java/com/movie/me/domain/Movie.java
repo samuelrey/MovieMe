@@ -16,13 +16,13 @@ public class Movie {
 	private String title;
 
 	@Property(name="rating")
-	private String rating;
+	private double rating;
 	
 	@Property(name="rated")
 	private String rated;
 	
 	@Property(name="released")
-	private String releaseDate;
+	private int releaseDate;
 
 	@Property(name="plot")
 	private String plot;
@@ -40,7 +40,7 @@ public class Movie {
 	private String genre;
 
 	@Property(name="runtime")
-	private String runtime;
+	private int runtime;
 
 	@Property(name="poster")
 	private String poster;
@@ -101,11 +101,11 @@ public class Movie {
 		this.genre = genre;
 	}
 
-	public String getRuntime() {
+	public int getRuntime() {
 		return runtime;
 	}
 
-	public void setRuntime(String runtime) {
+	public void setRuntime(int runtime) {
 		this.runtime = runtime;
 	}
 
@@ -133,19 +133,19 @@ public class Movie {
 		this.title = title;
 	}
 
-	public String getRating() {
+	public double getRating() {
 		return rating;
 	}
 
-	public void setRating(String rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 
-	public String getReleaseDate() {
+	public int getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleasedate(String releaseDate) {
+	public void setReleasedate(int releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 

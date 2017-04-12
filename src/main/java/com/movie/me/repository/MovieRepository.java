@@ -10,7 +10,7 @@ import java.util.List;
 public interface MovieRepository extends GraphRepository<Movie> {
     @Query("MATCH (m:Movie {imdbid:{imdbid}}) " +
             "RETURN m")
-    Movie getMovie(@Param("imdbid") String imdbid);
+    Movie findByImdbid(@Param("imdbid") String imdbid);
 
     @Query("MATCH (m:Movie) " +
             "WHERE m.title =~ ('(?i).*'+{title}+'.*') " +
@@ -27,8 +27,8 @@ public interface MovieRepository extends GraphRepository<Movie> {
 
     @Query("MATCH (m:Movie) " +
             "WHERE m.actors =~ ('(?i).*'+{actor}+'.*') " +
-            "RETURN m")
-    List<Movie> findByActorLike(@Param("actor") String actor);
+            "RETURN m SKIP {page} LIMIT {size}")
+    List<Movie> findByActorLike(@Param("actor") String actor, @Param("page") int page, @Param("size") int size);
 
     @Query("MATCH (m:Movie) " +
             "WHERE m.writer =~ ('(?i).*'+{writer}+'.*') " +

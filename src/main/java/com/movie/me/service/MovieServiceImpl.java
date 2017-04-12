@@ -12,7 +12,7 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepository movieRepository;
 
     public Movie getMovie(String imdbid) {
-        return movieRepository.getMovie(imdbid);
+        return movieRepository.findByImdbid(imdbid);
     }
 
     public List<Movie> searchMovies(String query) {
@@ -47,7 +47,7 @@ public class MovieServiceImpl implements MovieService {
 
     public List<Movie> findByActorLike(String actor) {
         if( actor.length() > 0 ) {
-            return movieRepository.findByActorLike(actor);
+            return movieRepository.findByActorLike(actor, 1, 1);
         }
 
         return new ArrayList<>();
