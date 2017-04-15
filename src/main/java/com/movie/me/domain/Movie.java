@@ -16,13 +16,13 @@ public class Movie {
     private String title;
 
     @Property(name = "rating")
-    private double rating;
+    private Double rating;
 
     @Property(name = "rated")
     private String rated;
 
     @Property(name = "released")
-    private int releaseDate;
+    private Integer releaseDate;
 
     @Property(name = "plot")
     private String plot;
@@ -40,7 +40,7 @@ public class Movie {
     private String genre;
 
     @Property(name = "runtime")
-    private int runtime;
+    private Integer runtime;
 
     @Property(name = "poster")
     private String poster;
@@ -176,8 +176,8 @@ public class Movie {
         Movie movie = (Movie) o;
 
         if (Double.compare(movie.rating, rating) != 0) return false;
-        if (releaseDate != movie.releaseDate) return false;
-        if (runtime != movie.runtime) return false;
+        if (!releaseDate.equals(movie.releaseDate)) return false;
+        if (!runtime.equals(movie.runtime)) return false;
         if (imdbid != null ? !imdbid.equals(movie.imdbid) : movie.imdbid != null) return false;
         if (title != null ? !title.equals(movie.title) : movie.title != null) return false;
         if (rated != null ? !rated.equals(movie.rated) : movie.rated != null) return false;
