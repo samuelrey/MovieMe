@@ -176,4 +176,79 @@ public class MovieRepositoryTest {
 
         assertThat(pageOne, not(containsInAnyOrder(pageTwo.toArray())));
     }
+
+    // -- findByGenre --------------------------------------------------------------------------------------------------
+    @Test
+    public void testFindByGenreExist() {
+        List<Movie> expected = new ArrayList<>();
+        String[] imdbids = {"tt0083866", "tt0116629", "tt0133093", "tt0234215", "tt0242653", "tt1104001", "tt0092007",
+                "tt0120844", "tt0088170", "tt0079945"};
+        for(String imdbid: imdbids) {
+            expected.add(movieRepository.findByImdbid(imdbid));
+        }
+
+        List<Movie> actual = movieRepository.findByGenreLike("Sci-Fi", 0, 10);
+
+        assertThat(actual, containsInAnyOrder(expected.toArray()));
+    }
+
+    @Test
+    public void testFindByGenreNotExist() {
+        List<Movie> actual = movieRepository.findByGenreLike("WiFi", 0, 10);
+
+        assertThat(actual.isEmpty(), is(true));
+    }
+
+    @Test
+    public void testFindByGenreCaseInsensitive() {
+        List<Movie> lowerCase = movieRepository.findByGenreLike("sci-fi", 0, 10);
+        List<Movie> upperCase = movieRepository.findByGenreLike("SCI-FI", 0, 10);
+
+        assertThat(lowerCase, equalTo(upperCase));
+    }
+
+    @Test
+    public void testFindByGenreNextPageUniqueMovies() {
+        List<Movie> pageOne = movieRepository.findByGenreLike("Sci-Fi", 0, 10);
+        List<Movie> pageTwo = movieRepository.findByGenreLike("Sci-Fi", 10, 10);
+
+        assertThat(pageOne, not(containsInAnyOrder(pageTwo.toArray())));
+    }
+
+    // -- findByDirector -----------------------------------------------------------------------------------------------
+    @Test
+    public void testFindByDirectorExist() {
+        List<Movie> expected = new ArrayList<>();
+        String[] imdbids = {"tt0076759", "tt0120915", "tt0121765", "tt0066434", "tt0069704", "tt0121766"};
+        for(String imdbid: imdbids) {
+            expected.add(movieRepository.findByImdbid(imdbid));
+        }
+
+        List<Movie> actual = movieRepository.findByDirectorLike("George Lucas", 0, 10);
+
+        assertThat(actual, containsInAnyOrder(expected.toArray()));
+    }
+
+    @Test
+    public void testFindByDirectorNotExist() {
+        List<Movie> actual = movieRepository.findByDirectorLike("George Lucha Libre", 0, 10);
+
+        assertThat(actual.isEmpty(), is(true));
+    }
+
+    @Test
+    public void testFindByDirectorCaseInsensitive() {
+        List<Movie> lowerCase = movieRepository.findByDirectorLike("GEORGE LUCAS", 0, 10);
+        List<Movie> upperCase = movieRepository.findByDirectorLike("george lucas", 0, 10);
+
+        assertThat(lowerCase, equalTo(upperCase));
+    }
+
+    @Test
+    public void testFindByDirectorNextPageUniqueMovies() {
+        List<Movie> pageOne = movieRepository.findByDirectorLike("George Lucas", 0, 10);
+        List<Movie> pageTwo = movieRepository.findByDirectorLike("George Lucas", 10, 10);
+
+        assertThat(pageOne, not(containsInAnyOrder(pageTwo.toArray())));
+    }
 }

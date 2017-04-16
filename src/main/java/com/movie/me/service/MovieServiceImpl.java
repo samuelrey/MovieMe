@@ -63,7 +63,7 @@ public class MovieServiceImpl implements MovieService {
 
     public List<Movie> findByDirectorLike(String director) {
         if( director.length() > 0 ) {
-            return movieRepository.findByDirectorLike(director);
+            return movieRepository.findByDirectorLike(director, 0, 0);
         }
 
         return new ArrayList<>();
@@ -71,7 +71,7 @@ public class MovieServiceImpl implements MovieService {
 
     public List<Movie> findByGenreLike(String genre) {
         if( genre.length() > 0 ) {
-            return movieRepository.findByGenreLike(genre);
+            return movieRepository.findByGenreLike(genre, 0, 0);
         }
 
         return new ArrayList<>();

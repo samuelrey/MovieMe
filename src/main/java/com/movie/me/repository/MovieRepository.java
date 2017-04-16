@@ -37,13 +37,14 @@ public interface MovieRepository extends GraphRepository<Movie> {
 
     @Query("MATCH (m:Movie) " +
             "WHERE m.director =~ ('(?i).*'+{director}+'.*') " +
-            "RETURN m")
-    List<Movie> findByDirectorLike(@Param("director") String director);
+            "RETURN m SKIP {page} LIMIT {size}")
+    List<Movie> findByDirectorLike(@Param("director") String director, @Param("page") int page,
+                                   @Param("size") int size);
 
     @Query("MATCH (m:Movie) " +
             "WHERE m.genre =~ ('(?i).*'+{genre}+'.*') " +
-            "RETURN m")
-    List<Movie> findByGenreLike(@Param("genre") String genre);
+            "RETURN m SKIP {page} LIMIT {size}")
+    List<Movie> findByGenreLike(@Param("genre") String genre, @Param("page") int page, @Param("size") int size);
 
     @Query("MATCH(m:Movie {imdbid:{imdbid}})" +
             "<-[l:likes]-() " +
