@@ -34,12 +34,10 @@ public class UserRemovesFriendsIT {
     public void initialize() {
         samuel = new User();
         samuel.setUsername("sammy123");
-        samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
         clarissa.setUsername("clari123");
-        clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 
         userRepository.save(samuel);

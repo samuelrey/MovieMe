@@ -1,9 +1,5 @@
 package com.movie.me.repository;
 
-import java.util.List;
-import java.util.Arrays;
-
-import org.hamcrest.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -32,7 +28,6 @@ public class CreateUserIT {
     public void initialize() {
         sam = new User();
         sam.setUsername("sam123");
-        sam.setName("sam");
         sam.setEmail("svillavicencio@csumb.edu");
 
         userRepository.save(sam);
@@ -45,11 +40,10 @@ public class CreateUserIT {
     @DirtiesContext
     public void createUserSuccess() {
         User samuel = new User();
-        samuel.setName("Samuel Villavicencio");
         samuel.setPhoto("");
         samuel.setEmail("savillavicencio@csumb.edu");
 
-        User result = userRepository.createUserNode(samuel.getName(), samuel.getEmail(), samuel.getUsername(), samuel.getPhoto(), samuel.getPhoto());
+        User result = userRepository.createUser(samuel.getEmail(), samuel.getUsername(), samuel.getPhoto(), "");
         assertThat(result.equals(samuel), is(true));
     }
 

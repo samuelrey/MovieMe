@@ -40,7 +40,6 @@ public class GoogleUserAuthentication {
                     String age = (String) payload.get("age");
 
                     User user = new User();
-                    user.setName(name);
                     user.setEmail(email);
                     user.setPhoto(pictureUrl);
                     user.setUsername(user.getEmail().substring(0, user.getEmail().indexOf("@")));

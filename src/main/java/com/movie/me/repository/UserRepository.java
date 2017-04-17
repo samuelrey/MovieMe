@@ -1,27 +1,21 @@
 package com.movie.me.repository;
 
-import java.util.List;
+import com.movie.me.domain.User;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-import com.movie.me.domain.User;
-
-@Repository
 public interface UserRepository extends GraphRepository<User> {
-    @Query("MATCH (u:User {userid:{userid}} " +
+    @Query("CREATE (u:User {email:{email}, username:{username}, photo:{photo}, password:{password}}) " +
             "RETURN u")
-    User findByUserId(@Param("userid") String userid);
+    User createUser(@Param("email") String email,
+                    @Param("username") String username,
+                    @Param("photo") String photo,
+                    @Param("password") String password);
 
-    @Query("CREATE (u:User {name:{name}, age:{age}, email:{email}, userid:{userid}, photo_uri:{photoURI}}) " +
+    @Query("MATCH (u:User {username:{username}}) " +
             "RETURN u")
-    User createUserNode(@Param("name") String name, @Param("age") String age, @Param("email") String email, @Param("userid") String userid, @Param("photoURI") String photoURI);
-
-    @Query("MATCH (u:User) " +
-            "WHERE u.name =~ ('(?i).*'+{name}+'.*')" +
-            "RETURN u")
-    List<User> findByNameLike(@Param("name") String name);
+    User findByUsername(@Param("username") String username);
 
     @Query("MATCH (u:User {email:{email}}) " +
             "RETURN u")

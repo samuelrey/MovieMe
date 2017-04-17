@@ -36,12 +36,10 @@ public class UserRetrieveLikesIT {
 
         samuel = new User();
         samuel.setUsername("sammy123");
-        samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
         clarissa.setUsername("clari123");
-        clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 
         newHope = new Movie();
@@ -57,7 +55,7 @@ public class UserRetrieveLikesIT {
     @Test
     @DirtiesContext
     public void testRetrieveMoviesLikedByNonexistentUser() {
-        List<Movie> result = movieRepository.retrieveMoviesLikedBy("Pearce");
+        List<Movie> result = movieRepository.findMoviesLikedBy("Pearce");
         assertThat(result.isEmpty(), is(true));
     }
 
@@ -65,7 +63,7 @@ public class UserRetrieveLikesIT {
     @DirtiesContext
     public void testRetrieveMoviesLikedByExistentUser() {
         movieRepository.addUserLikesMovie("sammy123", "0004");
-        List<Movie> result = movieRepository.retrieveMoviesLikedBy("sammy123");
+        List<Movie> result = movieRepository.findMoviesLikedBy("sammy123");
         assertThat(result.size(), equalTo(1));
         assertThat(result.get(0), equalTo(newHope));
         assertThat(result instanceof List<?>, is(true));

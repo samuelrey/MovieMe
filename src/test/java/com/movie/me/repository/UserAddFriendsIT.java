@@ -37,16 +37,13 @@ public class UserAddFriendsIT {
     public void initialize() {
         samuel = new User();
         samuel.setUsername("sammy123");
-        samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
         clarissa.setUsername("clari123");
-        clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 
         hugo = new User();
-        hugo.setName("Hugo Argueta");
         hugo.setEmail("hugoargueta@gmail.com");
         hugo.setUsername("1001");
 

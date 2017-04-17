@@ -31,7 +31,7 @@ public class MovieServiceImpl implements MovieService {
         if( rated.equalsIgnoreCase("g") || rated.equalsIgnoreCase("pg") ||
             rated.equalsIgnoreCase("pg-13") || rated.equalsIgnoreCase("r") ||
             rated.equalsIgnoreCase("nc-17") ) {
-            return movieRepository.findByRated(rated);
+            //
         }
 
         return new ArrayList<>();
@@ -39,7 +39,7 @@ public class MovieServiceImpl implements MovieService {
 
     public List<Movie> findByReleaseDate(String released) {
         if( released.length() > 0 ) {
-            return movieRepository.findByReleaseDate(released);
+            //
         }
 
         return new ArrayList<>();

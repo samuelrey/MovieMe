@@ -35,18 +35,15 @@ public class UserRemoveLikesIT {
     @Before
     public void initialize() {
         hugo = new User();
-        hugo.setName("Hugo Argueta");
         hugo.setEmail("hugoargueta@gmail.com");
         hugo.setUsername("1001");
 
         samuel = new User();
         samuel.setUsername("sammy123");
-        samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
         clarissa.setUsername("clari123");
-        clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 
         newHope = new Movie();
@@ -69,14 +66,14 @@ public class UserRemoveLikesIT {
     @DirtiesContext
     public void testUserUnlikesMovieExistentLike(){
         movieRepository.addUserLikesMovie(hugo.getUsername(), interstellar.getImdbid());
-        Movie result = movieRepository.userUnlikesMovie(hugo.getUsername(), interstellar.getImdbid());
+        Movie result = movieRepository.removeUserLikesMovie(hugo.getUsername(), interstellar.getImdbid());
         assertThat(result, equalTo(interstellar));
     }
 
     @Test
     @DirtiesContext
     public void testUserUnlikesMovieNonexistentLike(){
-        Movie result = movieRepository.userUnlikesMovie(hugo.getUsername(), interstellar.getImdbid());
+        Movie result = movieRepository.removeUserLikesMovie(hugo.getUsername(), interstellar.getImdbid());
         assertThat(result, equalTo(null));
     }
 

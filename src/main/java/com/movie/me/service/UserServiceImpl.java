@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public List<Movie> getLikes(String userid) {
         List<Movie> movies = new ArrayList<>();
         try {
-            movies = movieRepository.retrieveMoviesLikedBy(userid);
+            movies = movieRepository.findMoviesLikedBy(userid);
         } catch(ConverterNotFoundException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public Movie removeLike(String userId, String imdbid) {
-        return movieRepository.userUnlikesMovie(userId, imdbid);
+        return movieRepository.removeUserLikesMovie(userId, imdbid);
     }
 
     public List<Movie> getRecommendations(String userid) {
@@ -53,6 +53,6 @@ public class UserServiceImpl implements UserService {
             return new ArrayList<>();
         }
 
-        return movieRepository.getRecommendationForUser(userid);
+        return movieRepository.findRecommendationsFor(userid, 0, 0);
     }
 }

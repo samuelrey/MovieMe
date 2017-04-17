@@ -251,4 +251,20 @@ public class MovieRepositoryTest {
 
         assertThat(pageOne, not(containsInAnyOrder(pageTwo.toArray())));
     }
+
+    // -- findByReleased -----------------------------------------------------------------------------------------------
+// TODO: filter search results by released, rated & rating
+//    @Test
+//    public void testFindByReleased() {
+//        List<Movie> expected = new ArrayList<>();
+//        String[] imdbids = {"t0076759", "tt0075902", "tt0076752", "tt0075686", "tt0071458", "tt0075860", "tt0077687",
+//                "tt0076155", "tt0068182", "tt0075933"};
+//        for(String imdbid: imdbids) {
+//            expected.add(movieRepository.findByImdbid(imdbid));
+//        }
+//
+//        List<Movie> actual = movieRepository.findByReleaseDate(220924800, 252460800, 0, 10);
+//
+//        assertThat(actual, containsInAnyOrder(expected));
+//    }
 }

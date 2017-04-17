@@ -39,12 +39,10 @@ public class UserAddLikesIT {
 
         samuel = new User();
         samuel.setUsername("sammy123");
-        samuel.setName("Samuel Villavicencio");
         samuel.setEmail("savillavicencio@csumb.edu");
 
         clarissa = new User();
         clarissa.setUsername("clari123");
-        clarissa.setName("Clarissa Vazquez");
         clarissa.setEmail("cvasquez-ramo@csumb.edu");
 
         newHope = new Movie();
@@ -62,7 +60,7 @@ public class UserAddLikesIT {
     public void testUserLikesMoviesAddsNoDuplicates() {
         movieRepository.addUserLikesMovie("sammy123", "0004");
         movieRepository.addUserLikesMovie("sammy123", "0004");
-        List<Movie> result = movieRepository.retrieveMoviesLikedBy("sammy123");
+        List<Movie> result = movieRepository.findMoviesLikedBy("sammy123");
         int count = Collections.frequency(result, newHope);
         assertThat(count, equalTo(1));
     }

@@ -17,14 +17,6 @@ public interface MovieRepository extends GraphRepository<Movie> {
             "RETURN m SKIP {page} LIMIT {size}")
     List<Movie> findByTitleLike(@Param("title") String title, @Param("page") int page, @Param("size") int size);
 
-    @Query("MATCH (m:Movie {rated:{rated}}) " +
-            "RETURN m")
-    List<Movie> findByRated(@Param("rated") String rated);
-
-    @Query("MATCH (m:Movie {released:{released}}) " +
-            "RETURN m")
-    List<Movie> findByReleaseDate(@Param("released") String released);
-
     @Query("MATCH (m:Movie) " +
             "WHERE m.actors =~ ('(?i).*'+{actor}+'.*') " +
             "RETURN m SKIP {page} LIMIT {size}")
@@ -46,34 +38,27 @@ public interface MovieRepository extends GraphRepository<Movie> {
             "RETURN m SKIP {page} LIMIT {size}")
     List<Movie> findByGenreLike(@Param("genre") String genre, @Param("page") int page, @Param("size") int size);
 
-    @Query("MATCH(m:Movie {imdbid:{imdbid}})" +
-            "<-[l:likes]-() " +
-            "RETURN COUNT(l)")
-    int countLikesOf(@Param("imdbid") String imdbid);
-
-    @Query("MATCH (:User {email:{userid}}) " +
+    @Query("MATCH (:User {email:{username}}) " +
             "-[:likes]->(m:Movie) " +
             "RETURN m")
-    List<Movie> retrieveMoviesLikedBy(@Param("userid") String userid);
+    List<Movie> findMoviesLikedBy(@Param("username") String username);
 
-    @Query("MATCH(u:User {email:{userid}})" +
+    @Query("MATCH(u:User {email:{username}})" +
             "-[:likes]->(:Movie)<-[:likes]-(:User)" +
             "-[:likes]->(m:Movie) " +
             "WHERE NOT (u)-[:likes]->(m) " +
             "WITH m, COUNT(m) AS hits " +
             "RETURN m ORDER BY hits DESC " +
-            "LIMIT 30")
-    List<Movie> getRecommendationForUser(@Param("userid") String userid);
+            "SKIP {page} LIMIT {size}")
+    List<Movie> findRecommendationsFor(@Param("username") String username, @Param("page") int page, @Param("size") int size);
 
-    @Query("MATCH (u:User {email:{userid}}), " +
+    @Query("MATCH (u:User {email:{username}}), " +
             "(m:Movie {imdbid:{imdbid}}) " +
             "MERGE (u)-[:likes]->(m) " +
             "RETURN m")
-    Movie addUserLikesMovie(@Param("userid") String userid,
-                            @Param("imdbid") String imdbid);
+    Movie addUserLikesMovie(@Param("username") String username, @Param("imdbid") String imdbid);
 
-    @Query("MATCH (u:User {email:{userid}})-[l:likes]-(m:Movie {imdbid:{imdbid}}) " +
+    @Query("MATCH (u:User {email:{username}})-[l:likes]-(m:Movie {imdbid:{imdbid}}) " +
             "DELETE l RETURN m")
-    Movie userUnlikesMovie(@Param("userid") String userid,
-                           @Param("imdbid") String imdbid);
+    Movie removeUserLikesMovie(@Param("username") String username, @Param("imdbid") String imdbid);
 }

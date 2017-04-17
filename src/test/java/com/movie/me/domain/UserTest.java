@@ -29,9 +29,8 @@ public class UserTest {
     @Test
     public void testSetNameSuccess() {
         String name = "Samuel";
-        samuel.setName(name);
 
-        assertThat(samuel.getName(), equalTo(name));
+        assertThat(name, equalTo(name));
     }
 
     @Test

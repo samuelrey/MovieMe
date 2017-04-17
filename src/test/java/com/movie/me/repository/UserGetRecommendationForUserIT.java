@@ -3,7 +3,6 @@ package com.movie.me.repository;
 import com.movie.me.beans.Neo4jTestConfiguration;
 import com.movie.me.domain.Movie;
 import com.movie.me.domain.User;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +48,8 @@ public class UserGetRecommendationForUserIT {
         userRepository.save(samuel);
         userRepository.save(christian);
 
-        List<Movie> recommendationsForSamuel = movieRepository.getRecommendationForUser("0004");
-        List<Movie> recommendationsForChristian = movieRepository.getRecommendationForUser("0008");
+        List<Movie> recommendationsForSamuel = movieRepository.findRecommendationsFor("0004", 0, 0);
+        List<Movie> recommendationsForChristian = movieRepository.findRecommendationsFor("0008", 0, 0);
 
         assertThat(recommendationsForSamuel.isEmpty(), is(true));
         assertThat(recommendationsForChristian.isEmpty(), is(true));
@@ -74,8 +73,8 @@ public class UserGetRecommendationForUserIT {
         userRepository.save(samuel);
         userRepository.save(christian);
 
-        List<Movie> recommendationsForSamuel = movieRepository.getRecommendationForUser("0004");
-        List<Movie> recommendationsForChristian = movieRepository.getRecommendationForUser("0008");
+        List<Movie> recommendationsForSamuel = movieRepository.findRecommendationsFor("0004", 0, 0);
+        List<Movie> recommendationsForChristian = movieRepository.findRecommendationsFor("0008", 0, 0);
 
         assertThat(recommendationsForSamuel.isEmpty(), is(true));
         assertThat(recommendationsForChristian.isEmpty(), is(true));
@@ -101,8 +100,8 @@ public class UserGetRecommendationForUserIT {
         userRepository.save(samuel);
         userRepository.save(christian);
 
-        List<Movie> recommendationsForSamuel = movieRepository.getRecommendationForUser("0004");
-        List<Movie> moviesLikedBySamuel = movieRepository.retrieveMoviesLikedBy("0004");
+        List<Movie> recommendationsForSamuel = movieRepository.findRecommendationsFor("0004", 0, 0);
+        List<Movie> moviesLikedBySamuel = movieRepository.findMoviesLikedBy("0004");
 
         assertThat(recommendationsForSamuel.isEmpty(), is(false));
         assertThat(moviesLikedBySamuel, not(containsInAnyOrder(recommendationsForSamuel)));
@@ -130,7 +129,7 @@ public class UserGetRecommendationForUserIT {
 
         userRepository.save(Arrays.asList(samuel, christian, clarissa));
 
-        List<Movie> recommendationsForSamuel = movieRepository.getRecommendationForUser("0004");
+        List<Movie> recommendationsForSamuel = movieRepository.findRecommendationsFor("0004", 0, 0);
 
         assertThat(recommendationsForSamuel.size(), equalTo(2));
         assertThat(recommendationsForSamuel.get(0), equalTo(goneWithTheWind));

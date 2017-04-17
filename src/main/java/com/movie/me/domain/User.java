@@ -3,6 +3,7 @@ package com.movie.me.domain;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
@@ -17,15 +18,15 @@ public class User {
     @Property(name="username")
     private String username;
 
-	@Property(name="name")
-	private String name;
-
 	@Property(name="photo")
 	private String photo;
 
-	@JsonIgnore
 	@Property(name="email")
 	private String email;
+
+	@JsonIgnore
+	@Property(name="password")
+    private String password;
 
 	@Relationship(type="likes")
 	private Set<Movie> moviesLiked;
@@ -54,14 +55,6 @@ public class User {
 		this.photo = photo;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -70,7 +63,15 @@ public class User {
 		this.email = email;
 	}
 
-	public Set<Movie> getMoviesLiked() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = DigestUtils.sha256Hex(password);
+    }
+
+    public Set<Movie> getMoviesLiked() {
 		return moviesLiked;
 	}
 
@@ -78,12 +79,14 @@ public class User {
 		this.moviesLiked = moviesLiked;
 	}
 
-	@Override
-	public String toString() {
-		return this.email;
-	}
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", photo='" + photo + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
-	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
@@ -91,9 +94,48 @@ public class User {
 		User user = (User) o;
 
 		if (!username.equals(user.username)) return false;
-		if (!name.equals(user.name)) return false;
 		if (!photo.equals(user.photo)) return false;
 		return email.equals(user.email);
 	}
 
+	public static class UserBuilder {
+        private String username;
+        private String photo;
+        private String email;
+        private String password;
+
+        public UserBuilder() {
+            password = "";
+            photo = "";
+        }
+
+        public UserBuilder withUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public UserBuilder withPhoto(String photo) {
+            this.photo = photo;
+            return this;
+        }
+
+        public UserBuilder withEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder withPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public User build() {
+            User user = new User();
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPhoto(photo);
+            user.setPassword(password);
+            return user;
+        }
+    }
 }
