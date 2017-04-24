@@ -1,9 +1,6 @@
 package com.movie.me.beans;
 
-import com.movie.me.service.MovieService;
-import com.movie.me.service.MovieServiceImpl;
-import com.movie.me.service.UserService;
-import com.movie.me.service.UserServiceImpl;
+import com.movie.me.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,5 +15,10 @@ public class ServiceBeanConfiguration {
     @Bean
     public MovieService getMovieService() {
         return new MovieServiceImpl();
+    }
+
+    @Bean
+    public InputValidatorService getInputValidatorService() {
+        return new InputValidatorService();
     }
 }
