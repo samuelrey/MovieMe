@@ -2,12 +2,20 @@ package com.movie.me.controller;
 
 import java.util.List;
 
+import com.movie.me.JwtTokenUtil;
 import com.movie.me.domain.*;
 import com.movie.me.service.InputValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import com.movie.me.service.UserService;
@@ -20,6 +28,30 @@ public class UserController {
 
 	@Autowired
     InputValidatorService inputValidatorService;
+
+	@Autowired
+    AuthenticationManager authenticationManager;
+
+	@Autowired
+    UserDetailsService userDetailsService;
+
+	@Autowired
+    JwtTokenUtil jwtTokenUtil;
+
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+    public ResponseEntity<?> login(@RequestHeader(value="user") String user, @RequestHeader(value="pass") String pass) {
+        final Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user, pass)
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(user);
+        final String token = jwtTokenUtil.generateToken(userDetails);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Token", token);
+        return new ResponseEntity<Void>(null, headers, HttpStatus.OK);
+    }
 
 	@RequestMapping(method=RequestMethod.POST)
     public void createUser(@RequestParam(value="email") String email, @RequestParam(value="username") String username,
@@ -34,6 +66,7 @@ public class UserController {
         userService.createUser(email, username, photo);
     }
 
+    // TODO: return User without relationships
     @RequestMapping(value="/{username}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable(value="username") String username) throws UserDoesNotExistException {
 	    if(!inputValidatorService.validUsername(username)) {

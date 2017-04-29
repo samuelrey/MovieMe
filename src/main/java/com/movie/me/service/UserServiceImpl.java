@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    public User getUser(String email) {
-        return userRepository.findByEmail(email);
+    public User getUser(String username) {
+        return userRepository.findByUsername(username);
     }
 
     public List<Movie> getLikes(String userid) {
