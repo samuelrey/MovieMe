@@ -1,5 +1,7 @@
 package com.movie.me.service;
 
+import com.movie.me.domain.EmailAlreadyExistsException;
+import com.movie.me.domain.UsernameAlreadyExistsException;
 import com.movie.me.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,17 +12,32 @@ import com.movie.me.domain.Movie;
 import com.movie.me.domain.User;
 import com.movie.me.repository.UserRepository;
 import org.springframework.core.convert.ConverterNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserServiceImpl implements UserService {
+
 	@Autowired
 	UserRepository userRepository;
 
     @Autowired
     MovieRepository movieRepository;
 
-    public void createUser(String email, String username, String photo) {
-        User user = new User();
-        user.setEmail(email);
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    public void createUser(String email, String username, String password)
+            throws EmailAlreadyExistsException, UsernameAlreadyExistsException {
+        if( userRepository.findByEmail(email) != null ) {
+            throw new EmailAlreadyExistsException(email);
+        }
+        if( userRepository.findByUsername(username) != null ) {
+            throw new UsernameAlreadyExistsException(username);
+        }
+        User user = new User.UserBuilder()
+                .withEmail(email)
+                .withUsername(username)
+                .withPassword(passwordEncoder.encode(password))
+                .build();
 
         userRepository.save(user);
     }

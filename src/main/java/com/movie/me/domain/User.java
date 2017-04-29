@@ -68,7 +68,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = DigestUtils.sha256Hex(password);
+        this.password = password;
     }
 
     public Set<Movie> getMoviesLiked() {

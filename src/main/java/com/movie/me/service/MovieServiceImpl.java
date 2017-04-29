@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieServiceImpl implements MovieService {
+
     @Autowired
     private MovieRepository movieRepository;
 
-    public Movie getMovie(String imdbid) {
+    public Movie findByImdbid(String imdbid) {
         return movieRepository.findByImdbid(imdbid);
     }
 

@@ -7,21 +7,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class InputValidatorService {
-    public boolean validEmail(String email) {
+public class InputUtil {
+
+    public Boolean validEmail(String email) {
         return email != null
                 && !email.isEmpty()
                 && EmailValidator.getInstance().isValid(email);
     }
 
-    public boolean validUsername(String username) {
+    public Boolean validUsername(String username) {
         return username != null
                 && !username.isEmpty();
     }
 
-    public boolean validImdbid(String imdbid) {
+    public Boolean validImdbid(String imdbid) {
         Pattern pattern = Pattern.compile("tt\\d{7}");
         Matcher matcher = pattern.matcher(imdbid);
         return matcher.find();
+    }
+
+    public Boolean validPassword(String password, String check) {
+        return password != null
+                && !password.isEmpty()
+                && check.equals(password);
     }
 }
