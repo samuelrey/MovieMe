@@ -1,6 +1,7 @@
 package com.movie.me.beans;
 
 import com.movie.me.JwtAuthenticationTokenFilter;
+import com.movie.me.TokenMatchUserFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,11 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public TokenMatchUserFilter tokenMatchUserFilter() {
+        return new TokenMatchUserFilter();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -49,9 +55,12 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/user/login").permitAll()
                     .antMatchers(HttpMethod.POST, "/user").permitAll()
+                    .antMatchers(HttpMethod.POST, "/user/*/likes").authenticated()
+                    .antMatchers(HttpMethod.DELETE, "/user/*/likes").authenticated()
                     .antMatchers("/user/**").authenticated()
                     .antMatchers("/movies/**").authenticated().and()
-                .addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(tokenMatchUserFilter(), JwtAuthenticationTokenFilter.class);
     }
 
     @Bean

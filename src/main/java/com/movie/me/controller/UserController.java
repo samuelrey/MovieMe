@@ -80,7 +80,6 @@ public class UserController {
 	    return new ResponseEntity<Void>(null, headers, HttpStatus.OK);
     }
 
-    // TODO: return User without relationships
     @RequestMapping(value="/{username}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable(value="username") String username) throws UserDoesNotExistException {
 	    if(!inputUtil.validUsername(username)) {
@@ -89,7 +88,6 @@ public class UserController {
         return userService.getUser(username);
     }
 
-    //
     @RequestMapping(value="/{username}/likes", method=RequestMethod.POST)
     public void addLike(@PathVariable(value="username") String username, @RequestParam(value="imdbid") String imdbid)
             throws UserDoesNotExistException, MovieDoesNotExistException {

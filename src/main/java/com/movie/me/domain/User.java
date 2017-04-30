@@ -1,5 +1,6 @@
 package com.movie.me.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,6 +13,7 @@ import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity(label="User")
 public class User {
+
 	@GraphId
 	private Long id;
 
@@ -30,6 +32,10 @@ public class User {
 
 	@Relationship(type="likes")
 	private Set<Movie> moviesLiked;
+
+	public User() {
+	    moviesLiked = new HashSet<>();
+    }
 
     public Long getId() {
         return id;
@@ -76,8 +82,12 @@ public class User {
 	}
 
 	public void setMoviesLiked(Set<Movie> moviesLiked) {
-		this.moviesLiked = moviesLiked;
-	}
+	    this.moviesLiked = moviesLiked;
+    }
+
+	public Boolean addLike(Movie movie) {
+        return moviesLiked.add(movie);
+    }
 
     public String toString() {
         return "User{" +

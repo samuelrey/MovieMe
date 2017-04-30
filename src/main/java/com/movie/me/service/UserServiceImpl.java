@@ -1,17 +1,13 @@
 package com.movie.me.service;
 
-import com.movie.me.domain.EmailAlreadyExistsException;
-import com.movie.me.domain.UsernameAlreadyExistsException;
+import com.movie.me.domain.*;
 import com.movie.me.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.movie.me.domain.Movie;
-import com.movie.me.domain.User;
 import com.movie.me.repository.UserRepository;
-import org.springframework.core.convert.ConverterNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserServiceImpl implements UserService {
@@ -46,30 +42,42 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<Movie> getLikes(String userid) {
-        List<Movie> movies = new ArrayList<>();
-        try {
-            movies = movieRepository.findMoviesLikedBy(userid);
-        } catch(ConverterNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return movies;
+    public List<Movie> getLikes(String username) {
+        return movieRepository.findMoviesLikedBy(username);
     }
     
-    public Movie addLike(String userid, String imdbid) {
-        return movieRepository.addUserLikesMovie(userid, imdbid);
+    public Movie addLike(String username, String imdbid) throws UserDoesNotExistException, MovieDoesNotExistException {
+        User user = userRepository.findByUsername(username);
+        Movie movie = movieRepository.findByImdbid(imdbid);
+        if( user == null ) {
+            throw new UserDoesNotExistException(username);
+        }
+        if ( movie == null ) {
+            throw new MovieDoesNotExistException(imdbid);
+        }
+        user.addLike(movie);
+        userRepository.save(user);
+        return movie;
     }
 
-    public Movie removeLike(String userId, String imdbid) {
-        return movieRepository.removeUserLikesMovie(userId, imdbid);
+    public void removeLike(String username, String imdbid)
+            throws UserDoesNotExistException, MovieDoesNotExistException {
+        User user = userRepository.findByUsername(username);
+        Movie movie = movieRepository.findByImdbid(imdbid);
+        if( user == null ) {
+            throw new UserDoesNotExistException(username);
+        }
+        if ( movie == null ) {
+            throw new MovieDoesNotExistException(imdbid);
+        }
+        movieRepository.removeUserLikesMovie(username, imdbid);
     }
 
-    public List<Movie> getRecommendations(String userid) {
-        if( userid == null ) {
+    public List<Movie> getRecommendations(String username) {
+        if( username == null ) {
             return new ArrayList<>();
         }
 
-        return movieRepository.findRecommendationsFor(userid, 0, 0);
+        return movieRepository.findRecommendationsFor(username, 0, 0);
     }
 }

@@ -38,7 +38,7 @@ public interface MovieRepository extends GraphRepository<Movie> {
             "RETURN m SKIP {page} LIMIT {size}")
     List<Movie> findByGenreLike(@Param("genre") String genre, @Param("page") int page, @Param("size") int size);
 
-    @Query("MATCH (:User {email:{username}}) " +
+    @Query("MATCH (:User {username:{username}}) " +
             "-[:likes]->(m:Movie) " +
             "RETURN m")
     List<Movie> findMoviesLikedBy(@Param("username") String username);
@@ -52,13 +52,13 @@ public interface MovieRepository extends GraphRepository<Movie> {
             "SKIP {page} LIMIT {size}")
     List<Movie> findRecommendationsFor(@Param("username") String username, @Param("page") int page, @Param("size") int size);
 
-    @Query("MATCH (u:User {email:{username}}), " +
+    @Query("MATCH (u:User {username:{username}}), " +
             "(m:Movie {imdbid:{imdbid}}) " +
             "MERGE (u)-[:likes]->(m) " +
             "RETURN m")
     Movie addUserLikesMovie(@Param("username") String username, @Param("imdbid") String imdbid);
 
-    @Query("MATCH (u:User {email:{username}})-[l:likes]-(m:Movie {imdbid:{imdbid}}) " +
+    @Query("MATCH (u:User {username:{username}})-[l:likes]-(m:Movie {imdbid:{imdbid}}) " +
             "DELETE l RETURN m")
     Movie removeUserLikesMovie(@Param("username") String username, @Param("imdbid") String imdbid);
 }
