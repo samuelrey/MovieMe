@@ -18,7 +18,7 @@ public class ServiceBeanConfiguration {
     }
 
     @Bean
-    public InputUtil getInputValidatorService() {
+    public InputUtil getInputUtil() {
         return new InputUtil();
     }
 }

@@ -8,5 +8,5 @@ public interface MovieService {
 
     Movie findByImdbid(String imdbid);
 
-    List<Movie> searchMovies(String query);
+    List<Movie> findByTitleLike(String title, int page, int size);
 }

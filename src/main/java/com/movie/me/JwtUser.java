@@ -8,13 +8,11 @@ import java.util.Collection;
 
 public class JwtUser implements UserDetails {
 
-    private final Long id;
     private final String username;
     private final String password;
     private final String email;
 
-    public JwtUser(Long id, String username, String email, String password) {
-        this.id = id;
+    public JwtUser(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -28,11 +26,6 @@ public class JwtUser implements UserDetails {
 
     public String getEmail() {
         return email;
-    }
-
-    @JsonIgnore
-    public Long getId() {
-        return id;
     }
 
     @JsonIgnore

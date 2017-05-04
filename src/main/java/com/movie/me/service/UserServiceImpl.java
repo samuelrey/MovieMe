@@ -1,16 +1,32 @@
 package com.movie.me.service;
 
+import com.movie.me.JwtTokenUtil;
 import com.movie.me.domain.*;
 import com.movie.me.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.movie.me.repository.UserRepository;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
 	@Autowired
 	UserRepository userRepository;
@@ -38,12 +54,30 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    public String authenticate(String username, String password) throws AuthenticationException {
+        final Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return jwtTokenUtil.generateToken(userDetails);
+    }
+
     public User getUser(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public List<Movie> getLikes(String username) {
-        return movieRepository.findMoviesLikedBy(username);
+    public List<Movie> getLikes(String username, int page, int size) throws UserDoesNotExistException {
+        if( page < 1 || size < 1 ) {
+            throw new IllegalArgumentException();
+        }
+
+        if( getUser(username) == null ) {
+            throw new UserDoesNotExistException(username);
+        }
+
+        return movieRepository.findMoviesLikedBy(username, page, size);
     }
     
     public Movie addLike(String username, String imdbid) throws UserDoesNotExistException, MovieDoesNotExistException {
@@ -60,7 +94,7 @@ public class UserServiceImpl implements UserService {
         return movie;
     }
 
-    public void removeLike(String username, String imdbid)
+    public Movie removeLike(String username, String imdbid)
             throws UserDoesNotExistException, MovieDoesNotExistException {
         User user = userRepository.findByUsername(username);
         Movie movie = movieRepository.findByImdbid(imdbid);
@@ -70,14 +104,10 @@ public class UserServiceImpl implements UserService {
         if ( movie == null ) {
             throw new MovieDoesNotExistException(imdbid);
         }
-        movieRepository.removeUserLikesMovie(username, imdbid);
+        return movieRepository.removeUserLikesMovie(username, imdbid);
     }
 
-    public List<Movie> getRecommendations(String username) {
-        if( username == null ) {
-            return new ArrayList<>();
-        }
-
-        return movieRepository.findRecommendationsFor(username, 0, 0);
+    public List<Movie> getUserBasedRecommendations(String username, int page, int size) {
+        return movieRepository.findUserBasedRecommendations(username, page, size);
     }
 }

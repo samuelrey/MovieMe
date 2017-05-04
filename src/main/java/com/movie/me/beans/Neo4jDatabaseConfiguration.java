@@ -9,13 +9,14 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 @org.springframework.context.annotation.Configuration
 @EnableNeo4jRepositories(basePackages = "com.movie.me.repository")
 public class Neo4jDatabaseConfiguration extends Neo4jConfiguration {
+
     @Bean
     public Configuration getConfiguration() {
         Configuration config = new Configuration();
         config
                 .driverConfiguration()
-                .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
-                .setURI("http://neo4j:movieme@localhost:7474");
+                .setDriverClassName("org.neo4j.ogm.drivers.embedded.driver.EmbeddedDriver")
+                .setURI("file:///opt/neo4j-community-3.1.2/data/databases/graph.db");
         return config;
     }
 

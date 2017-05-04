@@ -27,7 +27,7 @@ public class TokenMatchUserFilter extends OncePerRequestFilter {
     @Autowired
     private UserRepository userRepository;
 
-    @Value("Authentication")
+    @Value("token")
     private String tokenHeader;
 
     @Override
@@ -35,11 +35,14 @@ public class TokenMatchUserFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String authToken = request.getHeader(this.tokenHeader);
         String usernameFromToken = jwtTokenUtil.getUsernameFromToken(authToken);
-        String usernameFromPath = request.getServletPath();
-        usernameFromPath = usernameFromPath.substring(5, usernameFromPath.indexOf("/", 5));
+        String usernameFromPath = null;
+        String[] pathVariables = request.getServletPath().split("/");
+        if( pathVariables.length > 1 && pathVariables[0].equals("user") && !pathVariables[1].equals("login")) {
+            usernameFromPath = pathVariables[1];
+        }
 
         if( usernameFromToken != null && SecurityContextHolder.getContext().getAuthentication() == null &&
-                usernameFromPath.equals(usernameFromToken) ) {
+                usernameFromToken.equals(usernameFromPath) ) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(usernameFromToken);
 
             if( jwtTokenUtil.validateToken(authToken, userDetails) ) {

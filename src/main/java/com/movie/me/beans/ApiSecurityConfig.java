@@ -17,12 +17,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Configures Spring Security.
+ *
+ * @author  Samuel Villavicencio
+ * @since   01-05-17
+ * @see     WebSecurityConfigurerAdapter
+ */
 @Configuration
 @EnableWebSecurity
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -32,8 +36,19 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationProvider(authenticationProvider());
     }
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Bean
-    public JwtAuthenticationTokenFilter authenticationTokenFilter() throws Exception {
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
+    @Bean
+    public JwtAuthenticationTokenFilter authenticationTokenFilter() {
         return new JwtAuthenticationTokenFilter();
     }
 
@@ -61,13 +76,5 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/movies/**").authenticated().and()
                 .addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(tokenMatchUserFilter(), JwtAuthenticationTokenFilter.class);
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
     }
 }
