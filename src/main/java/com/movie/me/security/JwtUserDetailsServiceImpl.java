@@ -1,6 +1,6 @@
-package com.movie.me;
+package com.movie.me.security;
 
-import com.movie.me.domain.User;
+import com.movie.me.domain.models.User;
 import com.movie.me.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,5 +1,7 @@
 package com.movie.me.domain;
 
+import com.movie.me.domain.models.Movie;
+import com.movie.me.domain.models.User;
 import org.junit.Before;
 import org.junit.Test;
 

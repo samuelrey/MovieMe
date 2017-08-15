@@ -1,6 +1,6 @@
-package com.movie.me;
+package com.movie.me.security;
 
-import com.movie.me.domain.User;
+import com.movie.me.domain.models.User;
 
 public final class JwtUserFactory {
 

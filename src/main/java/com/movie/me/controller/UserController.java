@@ -2,7 +2,12 @@ package com.movie.me.controller;
 
 import java.util.List;
 
-import com.movie.me.domain.*;
+import com.movie.me.domain.exceptions.EmailAlreadyExistsException;
+import com.movie.me.domain.exceptions.MovieDoesNotExistException;
+import com.movie.me.domain.exceptions.UserDoesNotExistException;
+import com.movie.me.domain.exceptions.UsernameAlreadyExistsException;
+import com.movie.me.domain.models.Movie;
+import com.movie.me.domain.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;

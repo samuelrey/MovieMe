@@ -1,4 +1,4 @@
-package com.movie.me.domain;
+package com.movie.me.domain.models;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;

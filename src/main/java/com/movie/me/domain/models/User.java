@@ -1,10 +1,9 @@
-package com.movie.me.domain;
+package com.movie.me.domain.models;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;

@@ -1,7 +1,7 @@
 package com.movie.me.repository;
 
 import com.movie.me.beans.Neo4jTestConfiguration;
-import com.movie.me.domain.User;
+import com.movie.me.domain.models.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

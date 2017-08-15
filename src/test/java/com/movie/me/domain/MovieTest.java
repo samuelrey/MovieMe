@@ -1,5 +1,6 @@
 package com.movie.me.domain;
 
+import com.movie.me.domain.models.Movie;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ public class MovieTest {
     }
 
     @Test
-    public void testsetRatedSuccess() {
+    public void testSetRatedSuccess() {
         String rated = "PG";
         newHope.setRated(rated);
 
@@ -41,7 +42,7 @@ public class MovieTest {
     }
 
     @Test
-    public void testsetWriterSuccess() {
+    public void testSetWriterSuccess() {
         String writer = "George Lucas";
         newHope.setWriter(writer);
 
@@ -49,7 +50,7 @@ public class MovieTest {
     }
 
     @Test
-    public void testsetDirectorSuccess() {
+    public void testSetDirectorSuccess() {
         String director = "George Lucas";
         newHope.setDirector(director);
 
@@ -57,7 +58,7 @@ public class MovieTest {
     }
 
     @Test
-    public void testsetActorsSuccess() {
+    public void testSetActorsSuccess() {
         String actors = "Mark Hamill, Harrison Ford, Carrie Fisher";
         newHope.setActors(actors);
 
@@ -90,7 +91,7 @@ public class MovieTest {
     }
 
     @Test
-    public void testsetTitleSuccess() {
+    public void testSetTitleSuccess() {
         String title = "Star Wars: Episode IV - A New Hope";
         newHope.setTitle(title);
 
@@ -106,7 +107,7 @@ public class MovieTest {
     }
 
     @Test
-    public void testsetReleasedateSuccess() {
+    public void testSetReleaseDateSuccess() {
         int releaseDate = 48932908;
         newHope.setReleasedate(releaseDate);
 

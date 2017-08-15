@@ -1,6 +1,6 @@
 package com.movie.me.service;
 
-import com.movie.me.domain.Movie;
+import com.movie.me.domain.models.Movie;
 
 import java.util.List;
 

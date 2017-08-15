@@ -1,7 +1,7 @@
 package com.movie.me.controller;
 
-import com.movie.me.domain.Movie;
-import com.movie.me.domain.MovieDoesNotExistException;
+import com.movie.me.domain.models.Movie;
+import com.movie.me.domain.exceptions.MovieDoesNotExistException;
 import com.movie.me.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;

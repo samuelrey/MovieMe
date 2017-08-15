@@ -1,6 +1,6 @@
 package com.movie.me.service;
 
-import com.movie.me.domain.Movie;
+import com.movie.me.domain.models.Movie;
 import com.movie.me.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 

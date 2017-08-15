@@ -2,7 +2,12 @@ package com.movie.me.service;
 
 import java.util.List;
 
-import com.movie.me.domain.*;
+import com.movie.me.domain.exceptions.EmailAlreadyExistsException;
+import com.movie.me.domain.exceptions.MovieDoesNotExistException;
+import com.movie.me.domain.exceptions.UserDoesNotExistException;
+import com.movie.me.domain.exceptions.UsernameAlreadyExistsException;
+import com.movie.me.domain.models.Movie;
+import com.movie.me.domain.models.User;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 

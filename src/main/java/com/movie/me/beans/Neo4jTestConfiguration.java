@@ -21,7 +21,7 @@ public class Neo4jTestConfiguration extends Neo4jConfiguration {
         return config;
     }
 
-    @Override
+    @Bean
     public SessionFactory getSessionFactory() {
         return new SessionFactory(getConfiguration(), "com.movie.me.domain");
     }

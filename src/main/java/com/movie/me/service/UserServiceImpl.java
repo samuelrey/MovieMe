@@ -1,7 +1,12 @@
 package com.movie.me.service;
 
-import com.movie.me.JwtTokenUtil;
-import com.movie.me.domain.*;
+import com.movie.me.security.JwtTokenUtil;
+import com.movie.me.domain.exceptions.EmailAlreadyExistsException;
+import com.movie.me.domain.exceptions.MovieDoesNotExistException;
+import com.movie.me.domain.exceptions.UserDoesNotExistException;
+import com.movie.me.domain.exceptions.UsernameAlreadyExistsException;
+import com.movie.me.domain.models.Movie;
+import com.movie.me.domain.models.User;
 import com.movie.me.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 

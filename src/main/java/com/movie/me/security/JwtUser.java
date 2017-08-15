@@ -1,4 +1,4 @@
-package com.movie.me;
+package com.movie.me.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

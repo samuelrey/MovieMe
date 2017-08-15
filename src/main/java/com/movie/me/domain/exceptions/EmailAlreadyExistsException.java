@@ -1,4 +1,4 @@
-package com.movie.me.domain;
+package com.movie.me.domain.exceptions;
 
 public class EmailAlreadyExistsException extends Exception {
     private static final String MESSAGE = "Email '%s' already exists.";

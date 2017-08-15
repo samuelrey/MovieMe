@@ -1,4 +1,4 @@
-package com.movie.me.domain;
+package com.movie.me.domain.exceptions;
 
 public class MovieDoesNotExistException extends Exception {
     private static final String MESSAGE = "Movie '%s' does not exist.";

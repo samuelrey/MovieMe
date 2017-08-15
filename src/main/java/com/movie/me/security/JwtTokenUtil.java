@@ -1,4 +1,4 @@
-package com.movie.me;
+package com.movie.me.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

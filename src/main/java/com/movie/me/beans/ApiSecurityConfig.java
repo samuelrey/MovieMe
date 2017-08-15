@@ -1,7 +1,7 @@
 package com.movie.me.beans;
 
-import com.movie.me.JwtAuthenticationTokenFilter;
-import com.movie.me.TokenMatchUserFilter;
+import com.movie.me.security.JwtAuthenticationTokenFilter;
+import com.movie.me.security.TokenMatchUserFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.movie.me.domain;
+package com.movie.me.domain.exceptions;
 
 public class UsernameAlreadyExistsException extends Exception {
     private static final String MESSAGE = "Username '%s' already exists.";
